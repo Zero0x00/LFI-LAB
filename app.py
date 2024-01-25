@@ -19,6 +19,6 @@ def about():
 def cat_picture():
     abc = request.args.get('file_path')
     if not abc:
-        return 404
+        return Response("Think ? is something missing", status=400)
     return send_file(os.path.join(os.getcwd(), abc))
 
