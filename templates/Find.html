@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genie's Mystery</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        #genieImage {
+            transition: opacity 1s ease-in-out;
+        }
+
+        #userInputContainer {
+            display: none;
+            margin-top: 20px;
+        }
+
+        #userInput {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+
+    <script>
+        function vanishGenie() {
+            document.getElementById('genieImage').style.opacity = 0;
+            setTimeout(function () {
+                document.getElementById('genieImage').style.display = 'none';
+                document.getElementById('userInputContainer').style.display = 'block';
+            }, 1000);
+        }
+    </script>
+    <script>
+        function loadImage() {
+            var userInput = document.getElementById('userInput').value;
+
+            // This is a vulnerable function allowing path traversal for educational purposes.
+            // In a real-world scenario, you should never implement such insecure code.
+            var imagePath = "/images/" + userInput;
+
+            document.getElementById('outputImage').src = imagePath;
+        }
+    </script>
+</head>
+<body>
+    <img id="genieImage" src="https://upload.wikimedia.org/wikipedia/en/0/0c/The_Genie_Aladdin.png" alt="Genie" width="300">
+    
+    <div id="userInputContainer">
+        <label for="userInput">What do you want to find?</label>
+        <input type="text" id="userInput" placeholder="Type here">
+        <button onclick="loadImage()">Find</button>
+    </div>
+    
+    <button onclick="vanishGenie()">Vanish Genie</button>
+    <img id="treasureImage" src="" alt="Treasure" style="display: none;">
+    <img id="outputImage" src="" alt="Loaded Image">
+    <!--  Don't forget to check /Find/file with file_path parameter -->
+</body>
+</html>
